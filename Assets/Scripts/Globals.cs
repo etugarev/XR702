@@ -27,6 +27,7 @@ namespace Globals
 		public static string Direction 		= "Direction";
 		public static string Grounded 		= "Grounded";
 		public static string AirVelocity	= "Air Velocity";
+		public static string isRunning	    = "Is Running";
 	}
 
 	public static class AnimatorLayer

@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
 	public bool aim;
 	[HideInInspector]
 	public bool grounded;
+	[HideInInspector]
+	public bool isRunning;
 
 	[HideInInspector]
 	public Vector3 moveDir;
@@ -123,6 +125,8 @@ public class PlayerController : MonoBehaviour
 		idleTimer = Time.deltaTime;
 
 		walk = (!Input.GetButton (PlayerInput.Run) || moveDir == Vector3.zero || Input.GetAxis (PlayerInput.Vertical) < 0f);
+
+		isRunning = Input.GetButton (PlayerInput.Run);
 	}   
     #endregion
 }

@@ -38,6 +38,7 @@ public class PlayerAnimator : MonoBehaviour
 		_animator.SetBool (AnimatorCondition.Grounded, _playerController.grounded);  
 		_animator.SetFloat (AnimatorCondition.Speed, Input.GetAxis(PlayerInput.Vertical));
 		_animator.SetFloat (AnimatorCondition.Direction, Input.GetAxis(PlayerInput.Horizontal));
+		_animator.SetBool (AnimatorCondition.isRunning, _playerController.isRunning);  
 
 		if (_playerController.grounded) 
 		{
@@ -48,6 +49,8 @@ public class PlayerAnimator : MonoBehaviour
 		}
 
 		_animator.SetFloat (AnimatorCondition.AirVelocity, _airVelocity);
+
+		Debug.Log (_airVelocity);
 
     }
     #endregion
