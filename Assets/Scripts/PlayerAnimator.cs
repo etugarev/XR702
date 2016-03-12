@@ -50,7 +50,14 @@ public class PlayerAnimator : MonoBehaviour
 
 		_animator.SetFloat (AnimatorCondition.AirVelocity, _airVelocity);
 
-		Debug.Log (_airVelocity);
+		if (_playerController.isArmed) 
+		{
+			_animator.SetLayerWeight (AnimatorLayer.WeaponLayer, 1f);
+		} else {
+			_animator.SetLayerWeight (AnimatorLayer.WeaponLayer, 0f);			
+		}
+
+		Debug.Log (_playerController.isArmed);
 
     }
     #endregion

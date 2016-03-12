@@ -34,6 +34,9 @@ public class PlayerController : MonoBehaviour
 	public bool grounded;
 	[HideInInspector]
 	public bool isRunning;
+	[HideInInspector]
+	public bool isArmed;
+
 
 	[HideInInspector]
 	public Vector3 moveDir;
@@ -61,6 +64,7 @@ public class PlayerController : MonoBehaviour
 
 		walk 	= true;
 		aim 	= false;
+		isArmed = false;
 
 		_controller = GetComponent<CharacterController> ();
 		_motor 		= GetComponent<CharacterMotor> ();
@@ -127,6 +131,10 @@ public class PlayerController : MonoBehaviour
 		walk = (!Input.GetButton (PlayerInput.Run) || moveDir == Vector3.zero || Input.GetAxis (PlayerInput.Vertical) < 0f);
 
 		isRunning = Input.GetButton (PlayerInput.Run);
+
+		if (Input.GetKeyDown (KeyCode.Alpha1)) {
+			isArmed = !isArmed;
+		} 
 	}   
     #endregion
 }

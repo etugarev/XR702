@@ -19,6 +19,7 @@ namespace Globals
 		public static string Cancel 	= "Cancel";
 		public static string Crouch 	= "Crouch";
 		public static string Run 		= "Run";
+		public static string Weapon 	= "Weapon";
 	}
 
 	public static class AnimatorCondition
@@ -33,8 +34,7 @@ namespace Globals
 	public static class AnimatorLayer
 	{
 		public static int BaseLayer = 0;
-		public static int UpperBody = 1;
-		public static int LowerBody = 2;
+		public static int WeaponLayer = 1;
 	}
     #endregion
 }
