@@ -35,8 +35,11 @@ public class PlayerAnimator : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+
+		float speedMult = _playerController.isRunning ? 1f : 0.5f;
+
 		_animator.SetBool (AnimatorCondition.Grounded, _playerController.grounded);  
-		_animator.SetFloat (AnimatorCondition.Speed, Input.GetAxis(PlayerInput.Vertical));
+		_animator.SetFloat (AnimatorCondition.Speed, Input.GetAxis(PlayerInput.Vertical) * speedMult);
 		_animator.SetFloat (AnimatorCondition.Direction, Input.GetAxis(PlayerInput.Horizontal));
 		_animator.SetBool (AnimatorCondition.isRunning, _playerController.isRunning);  
 
@@ -57,7 +60,7 @@ public class PlayerAnimator : MonoBehaviour
 			_animator.SetLayerWeight (AnimatorLayer.WeaponLayer, 0f);			
 		}
 
-		Debug.Log (_playerController.isArmed);
+		Debug.Log (Input.GetAxis(PlayerInput.Vertical));
 
     }
     #endregion
