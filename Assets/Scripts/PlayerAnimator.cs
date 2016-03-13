@@ -60,7 +60,7 @@ public class PlayerAnimator : MonoBehaviour
 			_animator.SetLayerWeight (AnimatorLayer.WeaponLayer, 0f);			
 		}
 
-		Debug.Log (Input.GetAxis(PlayerInput.Vertical));
+		//Debug.Log (Input.GetAxis(PlayerInput.Vertical));
 
     }
     #endregion
