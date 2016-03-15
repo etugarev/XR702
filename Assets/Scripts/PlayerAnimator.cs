@@ -12,10 +12,10 @@ public class PlayerAnimator : MonoBehaviour
     #endregion
 
     #region Private Fields & Properties
-	private float _airVelocity;
+	private float airVelocity;
 
-	private Animator _animator;
-	private PlayerController _playerController;
+	private Animator animator;
+	private PlayerController playerController;
 
     
     #endregion
@@ -28,37 +28,41 @@ public class PlayerAnimator : MonoBehaviour
     // Use this for initialization
     private void Start()
     {
-		_animator = GetComponent<Animator> ();
-		_playerController = GetComponent<PlayerController> ();
+		animator = GetComponent<Animator> ();
+		playerController = GetComponent<PlayerController> ();
     }
 
     // Update is called once per frame
     private void Update()
     {
 
-		float speedMult = _playerController.isRunning ? 1f : 0.5f;
+		float speedMult = playerController.isRunning ? 1f : 0.5f;
+		animator.SetFloat (AnimatorCondition.Speed, Input.GetAxis(PlayerInput.Vertical) * speedMult);
+		animator.SetFloat (AnimatorCondition.Direction, Input.GetAxis(PlayerInput.Horizontal));
 
-		_animator.SetBool (AnimatorCondition.Grounded, _playerController.grounded);  
-		_animator.SetFloat (AnimatorCondition.Speed, Input.GetAxis(PlayerInput.Vertical) * speedMult);
-		_animator.SetFloat (AnimatorCondition.Direction, Input.GetAxis(PlayerInput.Horizontal));
-		_animator.SetBool (AnimatorCondition.isRunning, _playerController.isRunning);  
+		animator.SetBool (AnimatorCondition.Grounded, playerController.grounded);  
+		animator.SetBool (AnimatorCondition.isRunning, playerController.isRunning);  
 
-		if (_playerController.grounded) 
+		if (playerController.grounded) 
 		{
-			_airVelocity = 0;
+			airVelocity = 0;
 		} else 
 		{
-			_airVelocity -= Time.time;
+			airVelocity -= Time.time;
 		}
 
-		_animator.SetFloat (AnimatorCondition.AirVelocity, _airVelocity);
+		animator.SetFloat (AnimatorCondition.AirVelocity, airVelocity);
 
-		if (_playerController.isArmed) 
-		{
-			_animator.SetLayerWeight (AnimatorLayer.WeaponLayer, 1f);
-		} else {
-			_animator.SetLayerWeight (AnimatorLayer.WeaponLayer, 0f);			
-		}
+		float isArmed = playerController.isArmed ? 1f : 0f; 
+
+		animator.SetLayerWeight (AnimatorLayer.WeaponLayer, isArmed);
+
+//		if (playerController.isArmed) 
+//		{
+//			animator.SetLayerWeight (AnimatorLayer.WeaponLayer, 1f);
+//		} else {
+//			animator.SetLayerWeight (AnimatorLayer.WeaponLayer, 0f);			
+//		}
 
 		//Debug.Log (Input.GetAxis(PlayerInput.Vertical));
 
