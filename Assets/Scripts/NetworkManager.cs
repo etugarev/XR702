@@ -5,6 +5,8 @@ public class NetworkManager : MonoBehaviour {
 
 	public Transform spawnSpot;
 
+	public bool offlineMode = false;
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -13,8 +15,14 @@ public class NetworkManager : MonoBehaviour {
 
 	void Connect() 
 	{
-		PhotonNetwork.offlineMode = true;
-		PhotonNetwork.ConnectUsingSettings ("XR702 1.0.0 Beta");
+		if (offlineMode) 
+		{
+			PhotonNetwork.offlineMode = true;
+			OnJoinedLobby ();
+		} else 
+		{
+			PhotonNetwork.ConnectUsingSettings ("XR702 1.0.0 Beta");
+		}
 	}
 
 	void OnGUI() 
