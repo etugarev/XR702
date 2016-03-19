@@ -7,8 +7,8 @@ public class PlayerTarget : MonoBehaviour
 {
 
     #region Public Fields & Properties
-	public Texture2D target;
-	public Texture2D targetOver;
+	public Texture2D targetTexture;
+	public Texture2D targetOverTexture;
 
 	public bool overEnemy;
 	public bool aim;
@@ -45,11 +45,9 @@ public class PlayerTarget : MonoBehaviour
 		playerTarget.parent = null;
 
 		gui = GetComponent<GUITexture>();
-
-		gui.pixelInset = new Rect (-target.width * 0.5f, -target.height * 0.5f, target.width, target.height);
-		gui.texture = target;
-
-		gui.color = new Color (0.5f, 0.5f, 0.5f, 0.15f);
+		gui.pixelInset = new Rect (-targetTexture.width * 0.5f, -targetTexture.height * 0.5f, targetTexture.width, targetTexture.height);
+		gui.texture = targetTexture;
+		gui.color = new Color (0.5f, 1f, 0.5f, 1f);
         
     }
 
@@ -58,7 +56,7 @@ public class PlayerTarget : MonoBehaviour
     {
 		if (!playerCam.gameObject.activeSelf)
 		{
-			gui.color = new Color (0.5f, 0.5f, 0.5f, 0.0f);
+			gui.color = new Color (0.5f, 0.5f, 1f, 1f);
 			return;
 		}
 
@@ -88,19 +86,19 @@ public class PlayerTarget : MonoBehaviour
 			playerTarget.position = playerCam.ScreenToWorldPoint (new Vector3 (Screen.width * 0.7f, Screen.height * (0.4f + (delta * 0.16f)), 10f));
 		}
 
-		if (overEnemy != _overEnemy) 
-		{
-			_overEnemy = overEnemy;
-
-			if (overEnemy) 
-			{
-				gui.texture = targetOver;
-			} 
-			else 
-			{
-				gui.texture = target;
-			}
-		}
+//		if (overEnemy != _overEnemy) 
+//		{
+//			_overEnemy = overEnemy;
+//
+//			if (overEnemy) 
+//			{
+//				gui.texture = targetOver;
+//			} 
+//			else 
+//			{
+//				gui.texture = target;
+//			}
+//		}
 
 		if (aim != _aim)
 		{
@@ -108,11 +106,11 @@ public class PlayerTarget : MonoBehaviour
 
 			if (aim) 
 			{
-				gui.color = new Color (0.5f, 0.5f, 0.5f, 0.75f);
+				gui.color = new Color (1f, 0.5f, 0.5f, 1f);
 			} 
 			else 
 			{
-				gui.color = new Color (0.5f, 0.5f, 0.5f, 0.15f);
+				gui.color = new Color (0.5f, 1f, 0.5f, 1f);
 			}
 		}        
     }
