@@ -25,7 +25,7 @@ public class Weapon : MonoBehaviour {
 
 	private Ray _ray;
 
-	private PlayerController _playerController;
+	private PlayerController player;
 
 	private AudioSource _audioSource;
     #endregion
@@ -38,14 +38,12 @@ public class Weapon : MonoBehaviour {
     // Use this for initialization
     private void Start()
     {
-		_playerController = GetComponent<PlayerController> ();
-		_audioSource = muzzle.GetComponent<AudioSource> ();
-
+		player = GetComponent<PlayerController> ();
     }
 
 	public bool isWeaponAvailable()
 	{
-		return _playerController.isArmed && rightHandAttachPoint.childCount > 1; 
+		return player.isArmed && rightHandAttachPoint.childCount > 1; 
 	}
 
     // Update is called once per frame
@@ -61,7 +59,7 @@ public class Weapon : MonoBehaviour {
 
 		_ray = cam.ScreenPointToRay (new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0f));
 
-		if (_playerController.aim) 
+		if (player.aim) 
 		{
 			gunRig.forward = _ray.direction;
 		} 
@@ -71,11 +69,12 @@ public class Weapon : MonoBehaviour {
 		}
 
 		if (Input.GetButton (PlayerInput.Fire1) && _fireCounter > fireDelay) {
-			_audioSource.Play ();
+			AudioSource audioSource = muzzle.GetComponent<AudioSource> ();
+			audioSource.Play ();
 			_fireCounter = 0f;
 
 			RaycastHit hit;
-			if (_playerController.aim) {
+			if (player.aim) {
 				if (Physics.Raycast (_ray, out hit, 100f)) {
 					Instantiate (bulletHole, hit.point, Quaternion.FromToRotation (Vector3.up, hit.normal));
 				}
