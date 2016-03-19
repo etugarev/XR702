@@ -16,6 +16,7 @@ public class Weapon : MonoBehaviour {
 	public GameObject muzzleFlash;
 
 	public Transform rightHandAttachPoint;
+	public Transform rightHandUsePoint;
 
 	public Camera cam;    
     #endregion
@@ -23,7 +24,7 @@ public class Weapon : MonoBehaviour {
     #region Private Fields & Properties
 	private float _fireCounter;
 
-	private Ray _ray;
+	private Ray ray;
 
 	private PlayerController player;
 
@@ -43,7 +44,7 @@ public class Weapon : MonoBehaviour {
 
 	public bool isWeaponAvailable()
 	{
-		return player.isArmed && rightHandAttachPoint.childCount > 1; 
+		return player.isArmed && rightHandAttachPoint.childCount > 0; 
 	}
 
     // Update is called once per frame
@@ -57,15 +58,21 @@ public class Weapon : MonoBehaviour {
 		gunRig = rightHandAttachPoint.GetChild (0);
 		muzzle = gunRig.GetChild (0);
 
-		_ray = cam.ScreenPointToRay (new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0f));
+//		Transform t = player ();
+
+//		rightHandAttachPoint.position =  new Vector3 (t.position.x + 0.3f, t.position.y + 1.2f, t.position.z + 0.5f);
+//		rightHandAttachPoint.rotation = t.rotation;
+
+
+		ray = cam.ScreenPointToRay (new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0f));
 
 		if (player.aim) 
 		{
-			gunRig.forward = _ray.direction;
+			gunRig.forward = ray.direction;
 		} 
 		else 
 		{
-			gunRig.forward = transform.forward;	
+			gunRig.forward = rightHandUsePoint.forward;	
 		}
 
 		if (Input.GetButton (PlayerInput.Fire1) && _fireCounter > fireDelay) {
@@ -75,11 +82,11 @@ public class Weapon : MonoBehaviour {
 
 			RaycastHit hit;
 			if (player.aim) {
-				if (Physics.Raycast (_ray, out hit, 100f)) {
+				if (Physics.Raycast (ray, out hit, 50f)) {
 					Instantiate (bulletHole, hit.point, Quaternion.FromToRotation (Vector3.up, hit.normal));
 				}
 			} else {
-				if (Physics.Raycast (muzzle.position, muzzle.forward, out hit, 100f)) {
+				if (Physics.Raycast (muzzle.position, muzzle.forward, out hit, 50f)) {
 					Instantiate (bulletHole, hit.point, Quaternion.FromToRotation (Vector3.up, hit.normal));					
 
 				}

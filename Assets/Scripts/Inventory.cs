@@ -13,7 +13,7 @@ public class Inventory : MonoBehaviour {
 	#endregion
 
 	#region Private Fields & Properties
-	private PlayerController playerController;
+	private PlayerController player;
 
 
 	#endregion
@@ -25,18 +25,18 @@ public class Inventory : MonoBehaviour {
 	#region System Methods
 	// Use this for initialization
 	void Start () {
-		playerController = GetComponent<PlayerController> ();
+		player = GetComponent<PlayerController> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		 // Add gun 
-		if (playerController.isArmed && rightHandAttachPoint.childCount == 0) {
+		if (player.isArmed && rightHandAttachPoint.childCount == 0) {
 			GameObject go = PhotonNetwork.Instantiate(items[0], rightHandAttachPoint.position, rightHandAttachPoint.rotation, 0);
 			go.transform.parent = rightHandAttachPoint;
 		} else 
 		// Remove gun when unarmed
-		if (!playerController.isArmed && rightHandAttachPoint.childCount == 1) {
+		if (!player.isArmed && rightHandAttachPoint.childCount == 1) {
 			GameObject go = rightHandAttachPoint.GetChild (0).gameObject;
 			PhotonNetwork.Destroy (go);
 		}
