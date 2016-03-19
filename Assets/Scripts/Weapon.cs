@@ -9,11 +9,13 @@ public class Weapon : MonoBehaviour {
 	public float lerpSpeed = 2f;
 	public float fireDelay;
 
-	public Transform gunRig;
-	public Transform muzzle;
+	private Transform gunRig;
+	private Transform muzzle;
 
 	public GameObject bulletHole;
 	public GameObject muzzleFlash;
+
+	public Transform rightHandAttachPoint;
 
 	public Camera cam;    
     #endregion
@@ -41,9 +43,22 @@ public class Weapon : MonoBehaviour {
 
     }
 
+	public bool isWeaponAvailable()
+	{
+		return _playerController.isArmed && rightHandAttachPoint.childCount > 1; 
+	}
+
     // Update is called once per frame
     private void LateUpdate()
     {
+		if (!isWeaponAvailable()) 
+		{
+			return;
+		}
+
+		gunRig = rightHandAttachPoint.GetChild (0);
+		muzzle = gunRig.GetChild (0);
+
 		_ray = cam.ScreenPointToRay (new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0f));
 
 		if (_playerController.aim) 
