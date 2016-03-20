@@ -5,6 +5,8 @@ public class NetworkManager : MonoBehaviour {
 
 	public Transform spawnSpot;
 
+	public Transform[] enemySpawnSpots;
+
 	public bool offlineMode = false;
 
 	// Use this for initialization
@@ -51,6 +53,11 @@ public class NetworkManager : MonoBehaviour {
 	{
 		Debug.Log ("OnJoinedRoom");
 		SpawnMyPlayer ();
+
+		if (PhotonNetwork.isMasterClient) 
+		{
+			spawnEnemy ();
+		}
 	}
 
 	void SpawnMyPlayer()
@@ -66,6 +73,14 @@ public class NetworkManager : MonoBehaviour {
 		player.GetComponent<Inventory> ().enabled = true;
 
 		player.GetComponentInChildren<Camera> ().enabled = true;
+
+	}
+
+	void spawnEnemy()
+	{
+		foreach (Transform spot in enemySpawnSpots) {
+			PhotonNetwork.Instantiate ("AllosaurusAdult", spot.position, spot.rotation, 0);
+		}
 
 	}
 }
