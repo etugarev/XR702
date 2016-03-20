@@ -17,6 +17,7 @@ public class Weapon : MonoBehaviour {
 
 	public Transform rightHandAttachPoint;
 	public Transform rightHandUsePoint;
+	public GameObject rightIKLimb;
 
 	public Camera cam;    
     #endregion
@@ -40,6 +41,7 @@ public class Weapon : MonoBehaviour {
     private void Start()
     {
 		player = GetComponent<PlayerController> ();
+
     }
 
 	public bool isWeaponAvailable()
@@ -50,7 +52,10 @@ public class Weapon : MonoBehaviour {
     // Update is called once per frame
     private void LateUpdate()
     {
-		if (!isWeaponAvailable()) 
+		bool canShoot = isWeaponAvailable (); 
+		rightIKLimb.SetActive (canShoot);
+
+		if (!canShoot) 
 		{
 			return;
 		}
@@ -58,38 +63,34 @@ public class Weapon : MonoBehaviour {
 		gunRig = rightHandAttachPoint.GetChild (0);
 		muzzle = gunRig.GetChild (0);
 
-//		Transform t = player ();
-
-//		rightHandAttachPoint.position =  new Vector3 (t.position.x + 0.3f, t.position.y + 1.2f, t.position.z + 0.5f);
-//		rightHandAttachPoint.rotation = t.rotation;
-
 
 		ray = cam.ScreenPointToRay (new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0f));
 
-		if (player.aim) 
-		{
-			gunRig.forward = ray.direction;
-		} 
-		else 
-		{
-			gunRig.forward = rightHandUsePoint.forward;	
-		}
+//		if (player.aim) 
+//		{
+//			gunRig.forward = ray.direction;
+//		} 
+//		else 
+//		{
+//			gunRig.forward = rightHandUsePoint.forward;	
+//		}
 
 		if (Input.GetButton (PlayerInput.Fire1) && _fireCounter > fireDelay) {
+			
 			AudioSource audioSource = muzzle.GetComponent<AudioSource> ();
 			audioSource.Play ();
 			_fireCounter = 0f;
 
 			RaycastHit hit;
-			if (player.aim) {
+//			if (player.aim) {
 				if (Physics.Raycast (ray, out hit, 50f)) {
 					Instantiate (bulletHole, hit.point, Quaternion.FromToRotation (Vector3.up, hit.normal));
-				}
-			} else {
-				if (Physics.Raycast (muzzle.position, muzzle.forward, out hit, 50f)) {
-					Instantiate (bulletHole, hit.point, Quaternion.FromToRotation (Vector3.up, hit.normal));					
-
-				}
+//				}
+//			} else {
+//				if (Physics.Raycast (muzzle.position, muzzle.forward, out hit, 50f)) {
+//					Instantiate (bulletHole, hit.point, Quaternion.FromToRotation (Vector3.up, hit.normal));					
+//
+//				}
 			}
 
 			StartCoroutine (MuzzleFlash ());

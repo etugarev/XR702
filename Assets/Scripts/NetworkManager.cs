@@ -61,7 +61,7 @@ public class NetworkManager : MonoBehaviour {
 		player.GetComponent<PlayerController> ().enabled = true;
 		player.GetComponent<Weapon> ().enabled = true;
 		player.GetComponent<PlayerAnimator> ().enabled = true;
-		player.GetComponent<HeadLookController> ().enabled = true;
+//		player.GetComponent<HeadLookController> ().enabled = true;
 		player.GetComponent<CharacterMotor> ().enabled = true;
 		player.GetComponent<Inventory> ().enabled = true;
 
