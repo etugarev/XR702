@@ -31,7 +31,7 @@ public class NetworkManager : MonoBehaviour {
 	{
 		string status = PhotonNetwork.connectionStateDetailed.ToString (); 
 		//GUILayout.Label (status);
-		GUI.Label(new Rect(10, 10, 200, 50), status);
+		GUI.Label(new Rect(10, 20, 200, 150), status);
 
 //		Debug.Log (status);
 	}
