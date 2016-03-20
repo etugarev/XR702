@@ -85,13 +85,22 @@ public class Weapon : MonoBehaviour {
 //			if (player.aim) {
 				if (Physics.Raycast (ray, out hit, 50f)) {
 					Instantiate (bulletHole, hit.point, Quaternion.FromToRotation (Vector3.up, hit.normal));
-//				}
+				    
+				    // we hit something
+					Debug.Log("We hit: " + hit.transform.gameObject.name);
+
+				    Health h = hit.transform.GetComponent<Health> ();
+				 
+					if (h != null) {
+					h.TakeDamage (25f);
+					}
+				}
 //			} else {
 //				if (Physics.Raycast (muzzle.position, muzzle.forward, out hit, 50f)) {
 //					Instantiate (bulletHole, hit.point, Quaternion.FromToRotation (Vector3.up, hit.normal));					
 //
 //				}
-			}
+//			}
 
 			StartCoroutine (MuzzleFlash ());
 		}
