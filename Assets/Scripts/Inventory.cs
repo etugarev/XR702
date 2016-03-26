@@ -32,7 +32,7 @@ public class Inventory : MonoBehaviour {
 	void Update () {
 		 // Add gun 
 		if (player.isArmed && rightHandAttachPoint.childCount == 0) {
-			GameObject go = PhotonNetwork.Instantiate(items[0], rightHandAttachPoint.position, Quaternion.Euler(-15, 270, 270), 0);
+			GameObject go = PhotonNetwork.Instantiate(items[0], rightHandAttachPoint.position, Quaternion.Euler(0, -90, 0), 0);
 			go.transform.parent = rightHandAttachPoint;
 		} else 
 		// Remove gun when unarmed

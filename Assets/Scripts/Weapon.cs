@@ -52,12 +52,12 @@ public class Weapon : MonoBehaviour {
     // Update is called once per frame
     private void LateUpdate()
     {
-		if (rightIKLimb == null) {
-			return;
-		}
+		//if (rightIKLimb == null) {
+		//	return;
+		//}
 
 		bool canShoot = isWeaponAvailable (); 
-		rightIKLimb.SetActive (canShoot);
+		//rightIKLimb.SetActive (canShoot);
 
 		if (!canShoot) 
 		{
