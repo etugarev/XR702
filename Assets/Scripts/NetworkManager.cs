@@ -62,7 +62,7 @@ public class NetworkManager : MonoBehaviour {
 
 	void SpawnMyPlayer()
 	{
-		GameObject player =  PhotonNetwork.Instantiate ("Remy", spawnSpot.position, spawnSpot.rotation, 0);
+		GameObject player =  PhotonNetwork.Instantiate ("ToddModel", spawnSpot.position, spawnSpot.rotation, 0);
 		//player.GetComponent<CharacterController> ().enabled = true;
 		player.GetComponent<Animator> ().enabled = true;
 		player.GetComponent<PlayerController> ().enabled = true;
