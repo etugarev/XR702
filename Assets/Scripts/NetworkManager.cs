@@ -79,7 +79,7 @@ public class NetworkManager : MonoBehaviour {
 	void spawnEnemy()
 	{
 		foreach (Transform spot in enemySpawnSpots) {
-			PhotonNetwork.Instantiate ("AllosaurusAdult1", spot.position, spot.rotation, 0);
+			PhotonNetwork.Instantiate ("AllosaurusAdult", spot.position, spot.rotation, 0);
 		}
 
 	}
