@@ -25,7 +25,7 @@ public class NetworkCharacter2 : Photon.MonoBehaviour
             stream.SendNext(transform.position);
             stream.SendNext(transform.rotation);
 
-			PlayerController player = GetComponent<PlayerController>();
+			//PlayerController player = GetComponent<PlayerController>();
 //			stream.SendNext((int)player._characterState);
 
 			Animator animator = GetComponent<Animator> ();
@@ -35,7 +35,11 @@ public class NetworkCharacter2 : Photon.MonoBehaviour
 
 			stream.SendNext (animator.GetBool (AnimatorCondition.Grounded));
 			stream.SendNext (animator.GetBool (AnimatorCondition.isRunning));
-			stream.SendNext (player.isArmed);
+
+
+//			Debug.Log (player.isArmed);
+		
+			//stream.SendNext (player.isArmed);
         }
         else
         {
@@ -43,7 +47,7 @@ public class NetworkCharacter2 : Photon.MonoBehaviour
             correctPlayerPos = (Vector3)stream.ReceiveNext();
             correctPlayerRot = (Quaternion)stream.ReceiveNext();
 
-			PlayerController player = GetComponent<PlayerController>();
+//			PlayerController player = GetComponent<PlayerController>();
 //            player._characterState = (CharacterState)stream.ReceiveNext();
 
 			Animator animator = GetComponent<Animator> ();
@@ -55,13 +59,10 @@ public class NetworkCharacter2 : Photon.MonoBehaviour
 			animator.SetBool (AnimatorCondition.Grounded, (bool)stream.ReceiveNext ());
 			animator.SetBool (AnimatorCondition.isRunning, (bool)stream.ReceiveNext ());
 
-			bool isArmed = (bool)stream.ReceiveNext (); 
-			animator.SetLayerWeight (AnimatorLayer.WeaponLayer, isArmed ? 1f : 0f);
-			player.isArmed = isArmed;
+			//bool isArmed = (bool)stream.ReceiveNext (); 
 
-
-
-
+			//animator.SetLayerWeight (AnimatorLayer.WeaponLayer, isArmed ? 1f : 0f);
+			//player.isArmed = isArmed;
         }
     }
 }

@@ -40,10 +40,10 @@ public class AllosaurusAI : MonoBehaviour {
 
 		float remainingDestanceX = target.x - transform.position.x; 
 		float remainingDestanceZ = target.z - transform.position.z; 
-		Debug.Log ("remainingDestance");
+//		Debug.Log ("remainingDestance");
 
 		if (remainingDestanceX < 2f || remainingDestanceZ < 2f) {
-			Debug.Log ("SetDestination");
+//			Debug.Log ("SetDestination");
 			
 			SetDestination ();
 		}
