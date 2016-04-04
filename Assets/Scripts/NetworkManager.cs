@@ -53,6 +53,7 @@ public class NetworkManager : MonoBehaviour {
 	{
 		Debug.Log ("OnJoinedRoom");
 		SpawnMyPlayer ();
+//		SpawnHUD ();
 
 		if (PhotonNetwork.isMasterClient) 
 		{
@@ -75,12 +76,16 @@ public class NetworkManager : MonoBehaviour {
 		player.GetComponentInChildren<Camera> ().enabled = true;
 
 	}
-
+		
 	void spawnEnemy()
 	{
 		foreach (Transform spot in enemySpawnSpots) {
 			PhotonNetwork.Instantiate ("AllosaurusAdult", spot.position, spot.rotation, 0);
 		}
+	}
 
+	void SpawnHUD() 
+	{
+//		Instantiate ("PlayerTargetHUD", new Vector3(0.5f, 0.5f, 0) , Quaternion.identity, 0);
 	}
 }
