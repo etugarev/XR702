@@ -13,7 +13,6 @@
 using System;
 using UnityEngine;
 
-
 [RequireComponent(typeof (PhotonView))]
 public class CubeInter : Photon.MonoBehaviour, IPunObservable
 {
@@ -54,7 +53,7 @@ public class CubeInter : Photon.MonoBehaviour, IPunObservable
             stream.Serialize(ref pos);
             stream.Serialize(ref rot);            
             
-            int localTimeOfSend = (int)stream.ReceiveNext();
+            //int localTimeOfSend = (int)stream.ReceiveNext();
             //Debug.Log("timeDiff" + (Environment.TickCount - localTimeOfSend) + " update age: " + (PhotonNetwork.time - info.timestamp));
 
             // Shift buffer contents, oldest data erased, 18 becomes 19, ... , 0 becomes 1
